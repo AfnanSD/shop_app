@@ -42,7 +42,8 @@ class ProductsProvider with ChangeNotifier {
   ];
 
   final String _token;
-  ProductsProvider(this._token, this._items);
+  final String _userId;
+  ProductsProvider(this._token, this._items, this._userId);
 
   List<Product> get items {
     return [..._items];
@@ -58,13 +59,21 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     try {
-      final url = Uri.parse(
+      var url = Uri.parse(
           'https://shop-app-udacity-course-default-rtdb.firebaseio.com/products.json?auth=$_token');
       final response = await http.get(url);
       if (jsonDecode(response.body) == null) {
         return;
       }
       final responseData = jsonDecode(response.body) as Map<String, dynamic>;
+      url = Uri.parse(
+          'https://shop-app-udacity-course-default-rtdb.firebaseio.com/userFavorites/$_userId.json?auth=$_token');
+      final favoriteResponse = await http.get(url);
+      var noFavorites;
+      if (jsonDecode(favoriteResponse.body) == null) {
+        noFavorites = true;
+      }
+      final favoriteResponseData = jsonDecode(favoriteResponse.body);
       List<Product> tempList = [];
       responseData.forEach((prodId, prodData) {
         tempList.add(Product(
@@ -73,7 +82,9 @@ class ProductsProvider with ChangeNotifier {
           description: prodData['description'],
           price: prodData['price'],
           imageUrl: prodData['imageURL'],
-          isFavorite: prodData['isFavorite'],
+          isFavorite: favoriteResponseData == null
+              ? false
+              : favoriteResponseData[prodId] ?? false,
         ));
       });
       _items = tempList;

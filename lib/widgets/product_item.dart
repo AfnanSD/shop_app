@@ -31,7 +31,7 @@ class _ProductItemState extends State<ProductItem> {
           leading: IconButton(
               onPressed: () {
                 setState(() {
-                  product.toggleFavorite(auth.token!);
+                  product.toggleFavorite(auth.token!, auth.userId!);
                 });
               },
               icon: Icon(
