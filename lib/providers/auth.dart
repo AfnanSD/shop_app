@@ -10,14 +10,14 @@ class Auth with ChangeNotifier {
   String? _userId;
 
   String? get userId {
-    return _userId;
+    return _userId ?? '';
   }
 
   String? get token {
     if (_expiryDate != null &&
         _expiryDate!.isAfter(DateTime.now()) &&
         _token != null) {
-      return _token!;
+      return _token;
     } else {
       return null;
     }
@@ -74,5 +74,12 @@ class Auth with ChangeNotifier {
     if (jsonDecode(response.body)['error'] != null) {
       throw HttpException(jsonDecode(response.body)['error']['message']);
     }
+  }
+
+  void logOut() {
+    _expiryDate = null;
+    _token = null;
+    _userId = null;
+    notifyListeners();
   }
 }

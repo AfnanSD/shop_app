@@ -22,8 +22,9 @@ class OrderItem {
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
   final String token;
+  final String userId;
 
-  Orders(this.token, this._orders);
+  Orders(this.token, this._orders, this.userId);
 
   List<OrderItem> get orders {
     return [..._orders];
@@ -31,7 +32,7 @@ class Orders with ChangeNotifier {
 
   Future<void> fetchAndSetOrders() async {
     final url = Uri.parse(
-        'https://shop-app-udacity-course-default-rtdb.firebaseio.com/orders.json?auth=$token');
+        'https://shop-app-udacity-course-default-rtdb.firebaseio.com/orders/$userId.json?auth=$token');
     final response = await http.get(url);
     if (jsonDecode(response.body) == null) {
       return;
@@ -64,7 +65,7 @@ class Orders with ChangeNotifier {
 
   Future<void> addOrder(List<PCartItem> products, double amount) async {
     final url = Uri.parse(
-        'https://shop-app-udacity-course-default-rtdb.firebaseio.com/orders.json?auth=$token');
+        'https://shop-app-udacity-course-default-rtdb.firebaseio.com/orders/$userId.json?auth=$token');
     final timestamp = DateTime.now();
     final response = await http.post(url,
         body: jsonEncode({

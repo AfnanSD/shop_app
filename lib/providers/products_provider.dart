@@ -57,10 +57,12 @@ class ProductsProvider with ChangeNotifier {
     return _items.firstWhere((product) => product.id == id);
   }
 
-  Future<void> fetchAndSetProducts() async {
+  Future<void> fetchAndSetProducts([bool filtreByUser = false]) async {
     try {
+      final filter =
+          filtreByUser ? 'orderBy="creatorId"&equalTo="$_userId"' : '';
       var url = Uri.parse(
-          'https://shop-app-udacity-course-default-rtdb.firebaseio.com/products.json?auth=$_token');
+          'https://shop-app-udacity-course-default-rtdb.firebaseio.com/products.json?auth=$_token&$filter');
       final response = await http.get(url);
       if (jsonDecode(response.body) == null) {
         return;
@@ -105,6 +107,7 @@ class ProductsProvider with ChangeNotifier {
               'description': product.description,
               'imageURL': product.imageUrl,
               'isFavorite': product.isFavorite,
+              'creatorId': _userId,
             }))
         .then((value) {
       Product newProduct = Product(

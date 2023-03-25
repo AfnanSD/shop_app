@@ -42,11 +42,15 @@ class _OrderscreenState extends State<Orderscreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemCount: orderData.orders.length,
-              itemBuilder: (context, index) =>
-                  OrderItemWidget(order: orderData.orders[index]),
-            ),
+          : orderData.orders.isEmpty
+              ? const Center(
+                  child: Text('You don\'t have any orders'),
+                )
+              : ListView.builder(
+                  itemCount: orderData.orders.length,
+                  itemBuilder: (context, index) =>
+                      OrderItemWidget(order: orderData.orders[index]),
+                ),
     );
   }
 }
