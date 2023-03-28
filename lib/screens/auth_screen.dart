@@ -163,6 +163,7 @@ class _AuthCardState extends State<AuthCard> {
       _showErrorDialog(errorMessage);
     } catch (error) {
       var errorMessage = 'Something went wrong, try again later please';
+
       _showErrorDialog(errorMessage);
     }
 
