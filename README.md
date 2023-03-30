@@ -1,16 +1,5 @@
 # shop_app
 
-A new Flutter project.
+Shop application that allow users to add, edit items to sell. Or to place orders for items from others sellers.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Personal expence app (1)](https://user-images.githubusercontent.com/99503463/228909606-89c4ade0-f9c3-4a68-964d-f68dafa07786.gif)
