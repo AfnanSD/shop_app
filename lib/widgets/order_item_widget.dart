@@ -36,32 +36,36 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
               },
             ),
           ),
-          if (_expand)
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                height: min(widget.order.products.length * 20.0 + 40.0, 160),
-                child: ListView(
-                  children: widget.order.products
-                      .map(
-                        (e) => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              e.title,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                            Text(
-                              '${e.quantity} * ${e.price}',
-                              style: const TextStyle(
-                                  color: Colors.grey, fontSize: 15),
-                            )
-                          ],
-                        ),
-                      )
-                      .toList(),
-                ))
+          AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeIn,
+              constraints: BoxConstraints(
+                  minHeight: _expand ? 50 : 0,
+                  maxHeight:
+                      _expand ? 200 : 0), //widget.order.products.length * 20
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              height: min(widget.order.products.length * 20.0 + 40.0, 160),
+              child: ListView(
+                children: widget.order.products
+                    .map(
+                      (e) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            e.title,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            '${e.quantity} * ${e.price}',
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 15),
+                          )
+                        ],
+                      ),
+                    )
+                    .toList(),
+              ))
         ],
       ),
     );
