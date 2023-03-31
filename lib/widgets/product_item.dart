@@ -27,7 +27,7 @@ class _ProductItemState extends State<ProductItem> {
             product.title,
             textAlign: TextAlign.center,
           ),
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.black38,
           leading: IconButton(
               onPressed: () {
                 setState(() {
